@@ -8,7 +8,8 @@
 import Foundation
 
 // Struct holding all components of recipe, inc main information, Ingredient and Direction
-struct Recipe {
+struct Recipe: Identifiable {
+    var id = UUID()
     var mainInformation: MainInformation
     var ingredients: [Ingredient]
     var directions: [Direction]
