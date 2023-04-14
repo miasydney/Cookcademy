@@ -27,6 +27,11 @@ struct Recipe: Identifiable {
         self.ingredients = ingredients
         self.directions = directions
     }
+    
+    // check fields are filled out
+    var isValid: Bool {
+        mainInformation.isValid && !ingredients.isEmpty && !directions.isEmpty
+    }
 }
 
 // Struct holding main information about recipe
@@ -42,6 +47,11 @@ struct MainInformation {
         case lunch = "Lunch"
         case dinner = "Dinner"
         case dessert = "Dessert"
+    }
+    
+    // check fields are filled out
+    var isValid: Bool {
+        !name.isEmpty && !description.isEmpty && !author.isEmpty
     }
 }
 
