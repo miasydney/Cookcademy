@@ -9,8 +9,9 @@ import SwiftUI
 
 struct RecipesListView: View {
     // create an instance of the view model
-    // needs state to update view when the model changes
-    @StateObject var recipeData = RecipeData()
+    // needs envnironment object as its being passed this object
+    @EnvironmentObject private var recipeData: RecipeData
+    let category: MainInformation.Category
     
     private let listBackgroundColor = AppColor.background
     private let listTextColor = AppColor.foreground
@@ -28,18 +29,23 @@ struct RecipesListView: View {
       }
     }
      
-    extension RecipesListView {
-      var recipes: [Recipe] {
-        recipeData.recipes
-      }
-     
-      var navigationTitle: String {
-        "All Recipes"
-      }
-    }
+extension RecipesListView {
+ 
+  private var recipes: [Recipe] {
+    recipeData.recipes(for: category)
+  }
+ 
+  private var navigationTitle: String {
+    "\(category.rawValue) Recipes"
+  }
+}
+        
 
 struct RecipesListView_Previews: PreviewProvider {
-    static var previews: some View {
-        RecipesListView()
+  static var previews: some View {
+    NavigationView {
+      RecipesListView(category: .breakfast)
+        .environmentObject(RecipeData())
     }
+  }
 }
